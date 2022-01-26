@@ -114,6 +114,9 @@ class Crawler:
         '''
         if(url_data["content_type"] == None):
             return outputLinks
+        
+        if(url_data["content"] == None):
+            return outputLinks
 
         content_type = url_data["content_type"].removeprefix("b\'") #https://docs.python.org/3.9/library/stdtypes.html?highlight=removeprefix#str.removeprefix
         file_type = content_type.split(';')[0] #usually content_type has both a filetype and an encoding, but sometimes the encoding is absent...
@@ -210,10 +213,11 @@ class Crawler:
             return False
 
         #TODO: Check for repeating subdomains (maybe if a subdomain appears 3+ times in the URL, declare it invalid?)
-
+          
         
         #How do we detect calendar traps???
-
+        if("calender" in url):
+            return False
 
         #https://docs.python.org/3/library/urllib.parse.html#urllib.parse.urlparse
 
